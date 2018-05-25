@@ -3,7 +3,7 @@ import { observer, Provider } from "mobx-react";
 import rootStore from './stores/root'
 import { Header, Container } from 'semantic-ui-react'
 import './App.css';
-import TodoView from './TodoView';
+import TodoView from './components/TodoView';
 
 @observer
 class App extends Component {
