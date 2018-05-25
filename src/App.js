@@ -3,7 +3,7 @@ import { observer, Provider } from "mobx-react";
 import rootStore from "./stores/root"
 import { Header, Container } from "semantic-ui-react"
 import "./App.css";
-import TodoView from "./components/TodoView";
+import TodoList from "./components/TodoList";
 
 @observer
 class App extends Component {
@@ -14,7 +14,7 @@ class App extends Component {
                 <div className="App">
                     <Container>
                         <Header as="h1">Todo App</Header>
-                        <TodoView />
+                        <TodoList />
                     </Container>
                 </div>
             </Provider>

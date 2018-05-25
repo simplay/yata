@@ -7,3 +7,7 @@ export function getTodos() {
 export function getTodo(todoId) {
     return api.get(`todos/${todoId}`);
 }
+
+export function createTodo(params) {
+  return api.post(`todos/`, { todo: params });
+}

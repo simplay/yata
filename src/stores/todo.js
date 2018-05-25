@@ -1,4 +1,4 @@
-import { getTodos } from "../api/todos"
+import { getTodos, createTodo } from "../api/todos"
 import { observable, action } from "mobx"
 
 class TodoStore {
@@ -11,6 +11,13 @@ class TodoStore {
     @action
     loadTodos() {
         getTodos().then(res => {
+            this.todos = res.data;
+        })
+    }
+
+    @action
+    saveTodo(params) {
+        createTodo(params).then(res => {
             this.todos = res.data;
         })
     }
