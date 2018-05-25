@@ -1,5 +1,5 @@
 import { getTodos } from "../api/todos"
-import { observable, action, computed } from "mobx"
+import { observable, action } from "mobx"
 
 class TodoStore {
     @observable todos = [];
