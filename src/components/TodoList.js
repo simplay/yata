@@ -36,7 +36,7 @@ class AddTodo extends React.Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        let todoParams = {title: this.state.title}
+        let todoParams = {title: this.state.title};
         this.props.todoStore.saveTodo(todoParams);
     }
 
@@ -45,9 +45,9 @@ class AddTodo extends React.Component {
             <Form onSubmit={this.handleSubmit}>
                 <Form.Group>
                     <Form.Input onChange={this.handleChange}
-                                labelPosition="left"
+                                size="medium"
+                                style={{minWidth:"30em"}}
                                 placeholder='New Todo...' />
-                    <Form.Button attached='right'>Submit</Form.Button>
                 </Form.Group>
             </Form>
         )
