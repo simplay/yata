@@ -1,16 +1,22 @@
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
-import { Item, Button, Checkbox, Form, Input } from 'semantic-ui-react'
+import { Grid, Container, Item, Button, Checkbox, Form, Input } from 'semantic-ui-react'
 
+@inject("todoStore") @observer
 class TodoItem extends React.Component {
+    handleClick = (event) => {
+      let todoId = this.props.todo.id;
+      this.props.todoStore.deleteTodo(todoId);
+    }
+
     render() {
         let todo = this.props.todo;
-        let title = `${todo.title}`
         return (
           <Item>
               <Item.Content>
-                  <Item.Header> {title} </Item.Header>
-                  <Item.Description> Foobar </Item.Description>
+                  <Item.Header> {todo.title} </Item.Header>
+                  <Item.Description> {todo.description} </Item.Description>
+                  <Button color="red" onClick={this.handleClick}> Delete </Button>
               </Item.Content>
           </Item>
         )
@@ -37,9 +43,11 @@ class AddTodo extends React.Component {
     render() {
         return (
             <Form onSubmit={this.handleSubmit}>
-                <Form.Group widths='equal'>
-                    <Form.Input onChange={this.handleChange} placeholder='New Todo...' />
-                    <Form.Button>Submit</Form.Button>
+                <Form.Group>
+                    <Form.Input onChange={this.handleChange}
+                                labelPosition="left"
+                                placeholder='New Todo...' />
+                    <Form.Button attached='right'>Submit</Form.Button>
                 </Form.Group>
             </Form>
         )
@@ -56,11 +64,14 @@ class TodoList extends React.Component {
         let todos = this.props.todoStore.todos;
         return (
             <div>
-                <AddTodo />
+                <Container>
+                    <Grid centered>
+                        <AddTodo />
+                    </Grid>
+                </Container>
                 <Item.Group>
                     { todos.map(todo => <TodoItem key={todo.id} todo={todo}/>) }
                 </Item.Group>
-
             </div>
         )
     }

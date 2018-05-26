@@ -11,3 +11,7 @@ export function getTodo(todoId) {
 export function createTodo(params) {
   return api.post(`todos/`, { todo: params });
 }
+
+export function destroyTodo(todoId) {
+  return api.delete(`todos/${todoId}`);
+}
