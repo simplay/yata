@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
-import { Grid, Container, Item, Button, Checkbox, Form, Input } from 'semantic-ui-react'
+import { List, Segment, Grid, Container, Item, Button, Checkbox, Form, Input } from 'semantic-ui-react'
 
 @inject("todoStore") @observer
 class TodoItem extends React.Component {
@@ -12,13 +12,15 @@ class TodoItem extends React.Component {
     render() {
         let todo = this.props.todo;
         return (
-          <Item>
-              <Item.Content>
-                  <Item.Header> {todo.title} </Item.Header>
-                  <Item.Description> {todo.description} </Item.Description>
+            <Segment inverted>
+                <List.Item>
+                <List.Content>
+                  <List.Header as='a'>{todo.title}</List.Header>
                   <Button color="red" onClick={this.handleClick}> Delete </Button>
-              </Item.Content>
-          </Item>
+                </List.Content>
+              </List.Item>
+            </Segment>
+
         )
     }
 }
@@ -69,9 +71,9 @@ class TodoList extends React.Component {
                         <AddTodo />
                     </Grid>
                 </Container>
-                <Item.Group>
+                <List divided inverted relaxed>
                     { todos.map(todo => <TodoItem key={todo.id} todo={todo}/>) }
-                </Item.Group>
+                </List>
             </div>
         )
     }
