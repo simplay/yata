@@ -1,19 +1,60 @@
 import React, { Component } from "react";
-import { inject, observer } from "mobx-react";
-import { List, Segment, Grid, Container, Item, Button, Checkbox, Form, Input } from 'semantic-ui-react'
+import { inject, observer} from "mobx-react";
+import { List, Segment, Grid, Container, Button, Form, Icon, Modal, Header } from 'semantic-ui-react'
 import { Flex, Box } from 'reflexbox'
 
 @inject("todoStore") @observer
-class TodoItem extends React.Component {
-    handleClick = (event) => {
-      let todoId = this.props.todo.id;
-      this.props.todoStore.deleteTodo(todoId);
+class TodoDetails extends Component {
+
+  handleClose = () => {
+      this.props.todoStore.disableActiveTodo();
+  }
+
+  displayModal = () => {
+      let activeTodo = this.props.todoStore.activeTodo;
+      return activeTodo === this.props.todo;
+  }
+
+  render() {
+      let title = `Details: ${this.props.todo.title}`
+      return (
+          <Modal
+              open={this.displayModal()}
+              onClose={this.handleClose}
+              basic
+              size='small'
+          >
+              <Header icon='browser' content='Cookies policy' />
+              <Modal.Content>
+                  <h3> {title} </h3>
+              </Modal.Content>
+              <Modal.Actions>
+                  <Button color='green' onClick={this.handleClose} inverted>
+                      <Icon name='checkmark' /> Got it
+                  </Button>
+              </Modal.Actions>
+          </Modal>
+      )
+  }
+}
+
+@inject("todoStore") @observer
+class TodoItem extends Component {
+    handleDeleteClick = (event) => {
+        let todoId = this.props.todo.id;
+        this.props.todoStore.deleteTodo(todoId);
+    }
+
+    handleSegmentClick = (event) => {
+        this.props.todoStore.setActiveTodo(this.props.todo);
     }
 
     render() {
         let todo = this.props.todo;
         return (
-            <Segment inverted>
+            <div>
+            <TodoDetails todo={this.props.todo}/>
+            <Segment inverted onClick={this.handleSegmentClick}>
                 <List.Item>
                 <List.Content>
                     <Flex justify="space-between">
@@ -21,18 +62,19 @@ class TodoItem extends React.Component {
                             <List.Header as='a'>{todo.title}</List.Header>
                         </Box>
                         <Box>
-                            <Button color="red" onClick={this.handleClick}> Delete </Button>
+                            <Button color="red" onClick={this.handleDeleteClick}> Delete </Button>
                         </Box>
                     </Flex>
                 </List.Content>
               </List.Item>
             </Segment>
+          </div>
         )
     }
 }
 
 @inject("todoStore") @observer
-class AddTodo extends React.Component {
+class AddTodo extends Component {
     constructor(props) {
         super(props);
         this.state = { title: '' };
@@ -53,7 +95,7 @@ class AddTodo extends React.Component {
             <Form onSubmit={this.handleSubmit}>
                 <Form.Group>
                     <Form.Input onChange={this.handleChange}
-                                size="medium"
+                                size="large"
                                 style={{minWidth:"30em"}}
                                 placeholder='New Todo...' />
                 </Form.Group>
@@ -63,7 +105,7 @@ class AddTodo extends React.Component {
 }
 
 @inject("todoStore") @observer
-class TodoList extends React.Component {
+class TodoList extends Component {
     componentDidMount() {
         this.props.todoStore.loadTodos();
     }

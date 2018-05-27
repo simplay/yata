@@ -3,6 +3,7 @@ import { observable, action } from "mobx"
 
 class TodoStore {
     @observable todos = [];
+    @observable activeTodo = null;
 
     constructor(root) {
         this.root = root;
@@ -13,6 +14,16 @@ class TodoStore {
         getTodos().then(res => {
             this.todos = res.data;
         })
+    }
+
+    @action
+    setActiveTodo(todo) {
+        this.activeTodo = todo;
+    }
+
+    @action
+    disableActiveTodo() {
+        this.activeTodo = null;
     }
 
     @action
