@@ -54,20 +54,22 @@ class TodoItem extends Component {
         return (
             <div>
             <TodoDetails todo={this.props.todo}/>
-            <Segment inverted onClick={this.handleSegmentClick}>
-                <List.Item>
-                <List.Content>
-                    <Flex justify="space-between">
-                        <Box>
-                            <List.Header as='a'>{todo.title}</List.Header>
-                        </Box>
-                        <Box>
-                            <Button color="red" onClick={this.handleDeleteClick}> Delete </Button>
-                        </Box>
-                    </Flex>
-                </List.Content>
-              </List.Item>
-            </Segment>
+              <Segment inverted
+                       style={{marginBottom: "5px", marginTop: "5px"}}
+                       onClick={this.handleSegmentClick}>
+                  <List.Item>
+                  <List.Content>
+                      <Flex justify="space-between">
+                          <Box>
+                              <List.Header>{todo.title}</List.Header>
+                          </Box>
+                          <Box>
+                              <Button color="red" onClick={this.handleDeleteClick}> Delete </Button>
+                          </Box>
+                      </Flex>
+                  </List.Content>
+                </List.Item>
+              </Segment>
           </div>
         )
     }
