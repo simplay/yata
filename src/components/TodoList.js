@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
 import { List, Segment, Grid, Container, Item, Button, Checkbox, Form, Input } from 'semantic-ui-react'
+import { Flex, Box } from 'reflexbox'
 
 @inject("todoStore") @observer
 class TodoItem extends React.Component {
@@ -15,12 +16,17 @@ class TodoItem extends React.Component {
             <Segment inverted>
                 <List.Item>
                 <List.Content>
-                  <List.Header as='a'>{todo.title}</List.Header>
-                  <Button color="red" onClick={this.handleClick}> Delete </Button>
+                    <Flex justify="space-between">
+                        <Box>
+                            <List.Header as='a'>{todo.title}</List.Header>
+                        </Box>
+                        <Box>
+                            <Button color="red" onClick={this.handleClick}> Delete </Button>
+                        </Box>
+                    </Flex>
                 </List.Content>
               </List.Item>
             </Segment>
-
         )
     }
 }
