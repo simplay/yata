@@ -43,6 +43,7 @@ class TodoItem extends Component {
     handleDeleteClick = (event) => {
         let todoId = this.props.todo.id;
         this.props.todoStore.deleteTodo(todoId);
+        event.stopPropagation();
     }
 
     handleSegmentClick = (event) => {
