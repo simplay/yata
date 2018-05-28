@@ -80,17 +80,22 @@ class TodoItem extends Component {
 class AddTodo extends Component {
     constructor(props) {
         super(props);
-        this.state = { title: '' };
+        this.state = {title: ''};
+    }
+
+    setDefaultTitle = () => {
+        this.setState({title: ''});
     }
 
     handleChange = (event) => {
-        this.setState({ title: event.target.value });
+        this.setState({title: event.target.value});
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
         let todoParams = {title: this.state.title};
         this.props.todoStore.saveTodo(todoParams);
+        this.setDefaultTitle();
     }
 
     render() {
@@ -100,6 +105,7 @@ class AddTodo extends Component {
                     <Form.Input onChange={this.handleChange}
                                 size="large"
                                 style={{minWidth:"30em"}}
+                                value={this.state.title}
                                 placeholder='New Todo...' />
                 </Form.Group>
             </Form>
