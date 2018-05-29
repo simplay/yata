@@ -1,13 +1,26 @@
 import React, { Component } from "react";
 import { inject, observer} from "mobx-react";
-import { List, Segment, Grid, Container, Button, Form, Icon, Modal, Header } from 'semantic-ui-react'
+import { List, Segment, Grid, Container, Checkbox, Button, Form, Icon, Modal, Header } from 'semantic-ui-react'
 import { Flex, Box } from 'reflexbox'
 
 @inject("todoStore") @observer
 class TodoDetails extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: this.props.todo.title,
+      description: this.getDescription()
+    }
+  }
 
   handleClose = () => {
       this.props.todoStore.disableActiveTodo();
+  }
+
+  handleOnChange = (event) => {
+      let fieldName = event.target.name;
+      let newValue = event.target.value;
+      this.setState({[fieldName]: newValue});
   }
 
   displayModal = () => {
@@ -15,22 +28,56 @@ class TodoDetails extends Component {
       return activeTodo === this.props.todo;
   }
 
+  getDescription = () => {
+      let description = this.props.todo.description;
+      if (description == null) {
+        return '';
+      }
+      return description;
+  }
+
   render() {
       let title = `Details: ${this.props.todo.title}`
+      const inlineStyle = {
+          modal: {
+              marginTop: '0px !important',
+              marginLeft: 'auto',
+              marginRight: 'auto'
+          }
+      };
+
       return (
-          <Modal
-              open={this.displayModal()}
-              onClose={this.handleClose}
-              basic
-              size='small'
+          <Modal open={this.displayModal()}
+                 centered='true'
+                 onClose={this.handleClose}
+                 style={inlineStyle.modal}
+                 size='large'
           >
-              <Header icon='browser' content='Cookies policy' />
+              <Header icon='browser' content='Todo Details' />
               <Modal.Content>
-                  <h3> {title} </h3>
+                  <Form>
+                      <Form.Field>
+                          <label>Title</label>
+                          <input placeholder='Title...'
+                                 value={this.state.title}
+                                 name="title"
+                                 onChange={this.handleOnChange}/>
+                      </Form.Field>
+                      <Form.Field>
+                          <label>Description</label>
+                          <input placeholder='Description goes here...'
+                                 value={this.state.description}
+                                 name="description"
+                                 onChange={this.handleOnChange}/>
+                      </Form.Field>
+                      <Form.Field>
+                          <Checkbox label='Done' />
+                      </Form.Field>
+                  </Form>
               </Modal.Content>
               <Modal.Actions>
                   <Button color='green' onClick={this.handleClose} inverted>
-                      <Icon name='checkmark' /> Got it
+                      <Icon name='checkmark' /> Save
                   </Button>
               </Modal.Actions>
           </Modal>
@@ -101,7 +148,7 @@ class AddTodo extends Component {
 
     render() {
         return (
-            <Form fluid onSubmit={this.handleSubmit}>
+            <Form onSubmit={this.handleSubmit}>
               <Form.Group style={{margin:"0 0 -1em 0"}}>
                     <Form.Input onChange={this.handleChange}
                                 fluid
