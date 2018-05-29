@@ -15,3 +15,7 @@ export function createTodo(params) {
 export function destroyTodo(todoId) {
   return api.delete(`todos/${todoId}`);
 }
+
+export function updateTodo(todoId, todoParams) {
+  return api.patch(`todos/${todoId}`, {todo: todoParams});
+}

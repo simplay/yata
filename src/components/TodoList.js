@@ -14,7 +14,11 @@ class TodoDetails extends Component {
   }
 
   handleClose = () => {
+      let activeTodo = this.props.todo;
       this.props.todoStore.disableActiveTodo();
+      this.props.todoStore.updateActiveTodo(
+        activeTodo, this.state
+      );
   }
 
   handleOnChange = (event) => {
@@ -88,8 +92,8 @@ class TodoDetails extends Component {
 @inject("todoStore") @observer
 class TodoItem extends Component {
     handleDeleteClick = (event) => {
-        let todoId = this.props.todo.id;
-        this.props.todoStore.deleteTodo(todoId);
+        let activeTodo = this.props.todo;
+        this.props.todoStore.deleteTodo(activeTodo);
         event.stopPropagation();
     }
 

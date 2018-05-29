@@ -1,4 +1,4 @@
-import { getTodos, createTodo, destroyTodo } from "../api/todos"
+import { getTodos, createTodo, destroyTodo, updateTodo } from "../api/todos"
 import { observable, action } from "mobx"
 
 class TodoStore {
@@ -19,6 +19,13 @@ class TodoStore {
     @action
     setActiveTodo(todo) {
         this.activeTodo = todo;
+    }
+
+    @action
+    updateActiveTodo(activeTodo, todoParams) {
+      updateTodo(activeTodo.id, todoParams).then(res => {
+          this.todos = res.data;
+      })
     }
 
     @action
