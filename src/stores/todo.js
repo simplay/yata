@@ -41,8 +41,8 @@ class TodoStore {
     }
 
     @action
-    deleteTodo(todoId) {
-        destroyTodo(todoId).then(res => {
+    deleteTodo(todo) {
+        destroyTodo(todo.id).then(res => {
           this.todos = res.data;
         })
     }
