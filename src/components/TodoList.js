@@ -56,6 +56,7 @@ class TodoItem extends Component {
             <div>
             <TodoDetails todo={this.props.todo}/>
               <Segment inverted
+                       size="large"
                        style={{marginBottom: "5px", marginTop: "5px"}}
                        onClick={this.handleSegmentClick}>
                   <List.Item>
@@ -100,11 +101,12 @@ class AddTodo extends Component {
 
     render() {
         return (
-            <Form onSubmit={this.handleSubmit}>
-                <Form.Group>
+            <Form fluid onSubmit={this.handleSubmit}>
+              <Form.Group style={{margin:"0 0 -1em 0"}}>
                     <Form.Input onChange={this.handleChange}
-                                size="large"
-                                style={{minWidth:"30em"}}
+                                fluid
+                                style={{width:"400px"}}
+                                size='large'
                                 value={this.state.title}
                                 placeholder='New Todo...' />
                 </Form.Group>
@@ -123,14 +125,19 @@ class TodoList extends Component {
         let todos = this.props.todoStore.todos;
         return (
             <div>
-                <Container>
-                    <Grid centered>
+                <Grid centered>
+                    <Grid.Row>
                         <AddTodo />
-                    </Grid>
-                </Container>
-                <List divided inverted relaxed>
-                    { todos.map(todo => <TodoItem key={todo.id} todo={todo}/>) }
-                </List>
+                    </Grid.Row>
+                    <Grid.Row>
+                        <List divided
+                              inverted
+                              size='large'
+                              style={{width:"60%"}}>
+                            { todos.map(todo => <TodoItem key={todo.id} todo={todo}/>) }
+                        </List>
+                    </Grid.Row>
+                </Grid>
             </div>
         )
     }
