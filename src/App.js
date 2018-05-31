@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { observer, Provider } from "mobx-react";
+import { observer, Provider, inject } from "mobx-react";
 import rootStore from "./stores/root"
 import { Header, Container } from "semantic-ui-react"
 import "./App.css";
@@ -29,14 +29,23 @@ const fakeAuth = {
     }
 }
 
+@inject('authenticationStore')
+@observer
 class Login extends React.Component {
     state = {
         redirectToReferrer: false,
-        enteredPassword: ""
+        enteredPassword: "",
+        enteredEmail: ""
     }
 
     hasValidPasswordEntered = () => {
-        return process.env.REACT_APP_LOGIN_PASSWORD === this.state.enteredPassword;
+        let authStore = this.props.authenticationStore;
+        let credentials = {
+            "email": this.state.enteredEmail,
+            "password": this.state.enteredPassword
+        }
+        authStore.authenticate(credentials);
+        return authStore.success;
     }
 
     login = () => {
@@ -47,9 +56,12 @@ class Login extends React.Component {
         })
     }
 
-    handleChange = (event) => {
+    handleEmailChange = (event) => {
+        this.setState({ enteredEmail: event.target.value });
+    }
+
+    handlePasswordChange = (event) => {
         this.setState({ enteredPassword: event.target.value });
-        console.log(this.state.enteredPassword)
     }
 
     render() {
@@ -63,12 +75,20 @@ class Login extends React.Component {
         return (
             <div>
                 <p>You must log in to view the page</p>
+                <input type="text"
+                    id="inputEmail"
+                    className="form-control"
+                    placeholder="Email"
+                    onChange={this.handleEmailChange}
+                    required/>
+                <br />
                 <input type="password"
                     id="inputPassword"
                     className="form-control"
                     placeholder="Password"
-                    onChange={this.handleChange}
+                    onChange={this.handlePasswordChange}
                     required/>
+                <br />
                 <button onClick={this.login}>Log in</button>
             </div>
         )
@@ -111,6 +131,7 @@ class App extends Component {
         return (
             <Provider rootStore={rootStore}
                       todoStore={rootStore.todoStore}
+                      authenticationStore={rootStore.authenticationStore}
                       routing={this.routingStore}>
                 <Router history={this.history}>
                     <div className="App">

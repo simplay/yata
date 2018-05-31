@@ -1,16 +1,17 @@
 import { getTodos, createTodo, destroyTodo, updateTodo } from "../api/todos"
-import { observable, action } from "mobx"
+import { observable, action, computed } from "mobx"
 
 class TodoStore {
     @observable todos = [];
     @observable activeTodo = null;
-    @observable config = {};
 
     constructor(root) {
         this.root = root;
-        this.config = {
-            headers: {'Authorization': ""}
-        }
+    }
+
+    @computed
+    get config() {
+        return this.root.authenticationStore.authToken;
     }
 
     @action
