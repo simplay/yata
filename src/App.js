@@ -17,43 +17,21 @@ import {
   withRouter
 } from 'react-router-dom'
 
-const fakeAuth = {
-    isAuthenticated: false,
-    authenticate(cb) {
-        this.isAuthenticated = true
-        setTimeout(cb, 100)
-    },
-    signout(cb) {
-        this.isAuthenticated = false
-        setTimeout(cb, 100)
-    }
-}
-
 @inject('authenticationStore')
 @observer
 class Login extends React.Component {
     state = {
-        redirectToReferrer: false,
         enteredPassword: "",
         enteredEmail: ""
     }
 
-    hasValidPasswordEntered = () => {
+    handleClick = (event) => {
         let authStore = this.props.authenticationStore;
         let credentials = {
             "email": this.state.enteredEmail,
             "password": this.state.enteredPassword
         }
         authStore.authenticate(credentials);
-        return authStore.success;
-    }
-
-    login = () => {
-        fakeAuth.authenticate(() => {
-            this.setState(() => ({
-                redirectToReferrer: this.hasValidPasswordEntered()
-            }))
-        })
     }
 
     handleEmailChange = (event) => {
@@ -66,15 +44,14 @@ class Login extends React.Component {
 
     render() {
         const { from } = this.props.location.state || { from: { pathname: '/todos' } }
-        const redirectToReferrer = this.state.redirectToReferrer;
 
-        if (redirectToReferrer === true) {
+        if (this.props.authenticationStore.isAuthenticated) {
             return <Redirect to={from} />
         }
 
         return (
             <div>
-                <p>You must log in to view the page</p>
+                <h1>YATA</h1>
                 <input type="text"
                     id="inputEmail"
                     className="form-control"
@@ -89,15 +66,16 @@ class Login extends React.Component {
                     onChange={this.handlePasswordChange}
                     required/>
                 <br />
-                <button onClick={this.login}>Log in</button>
+                <br />
+                <button onClick={this.handleClick}>Log in</button>
             </div>
         )
     }
 }
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
+const ProtectedRoute = ({ authStore: authStore, component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (
-        fakeAuth.isAuthenticated === true
+        authStore.isAuthenticated
         ? <Component {...props} />
         : <Redirect to={{
             pathname: '/login',
@@ -106,17 +84,27 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
     )} />
 )
 
-const AuthButton = withRouter(({ history }) => (
-    fakeAuth.isAuthenticated ? (
-        <p>
-            Welcome! <button onClick={() => {
-                fakeAuth.signout(() => history.push('/'))
-            }}>Sign out</button>
-    </p>
-    ) : (
-        <p>You are not logged in.</p>
-    )
-))
+class AuthButton extends React.Component {
+    handleClick = (event) => {
+        this.props.authStore.signout(
+            () => this.props.history.push('/')
+        );
+    }
+
+    render() {
+        return (
+            <div>
+                {
+                    this.props.authStore.isAuthenticated
+                    ? <button onClick={this.handleClick}>Sign out</button>
+                    : null
+                }
+                <br />
+                <br />
+            </div>
+        );
+    }
+}
 
 @observer
 class App extends Component {
@@ -135,9 +123,11 @@ class App extends Component {
                       routing={this.routingStore}>
                 <Router history={this.history}>
                     <div className="App">
-                        <AuthButton/>
+                        <AuthButton authStore={rootStore.authenticationStore} history={this.history}/>
                         <Route path="/" component={Login}/>
-                        <PrivateRoute path='/todos' component={TodoList} />
+                        <ProtectedRoute path='/todos'
+                                        component={TodoList}
+                                        authStore={rootStore.authenticationStore} />
                     </div>
                 </Router>
             </Provider>

@@ -3,26 +3,39 @@ import { observable, action, computed} from "mobx"
 
 class AuthenticationStore {
     @observable config = {}
-    @observable success = false
+    @observable isAuthenticated = false;
 
     constructor(root) {
         this.root = root;
+        this.config = JSON.parse(localStorage.getItem('config')) || {}
+        this.isAuthenticated = JSON.parse(localStorage.getItem('success')) || false
     }
 
     @computed
     get authToken() {
-        return {headers: {'Authorization': this.config.auth_token}};
+        return {
+            headers: {'Authorization': this.config.auth_token}
+        };
     }
 
     @action
     authenticate(credentials) {
         performAuthentication(credentials).then(res => {
             this.config = res.data;
-            this.success = true;
-
+            this.isAuthenticated = true;
+            localStorage.setItem('config', JSON.stringify(this.config));
+            localStorage.setItem('success', true);
         }).catch(error => {
-            this.success = false;
+            console.log("error")
         });
+    }
+
+    @action
+    signout(callback) {
+        this.config = {};
+        this.isAuthenticated = false;
+        localStorage.clear();
+        setTimeout(callback, 100)
     }
 }
 
