@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { inject, observer} from "mobx-react";
-import { List, Segment, Grid, Container, Checkbox, Button, Form, Icon, Modal, Header } from 'semantic-ui-react'
+import { List, Segment, Grid, Checkbox, Button, Form, Icon, Modal, Header } from 'semantic-ui-react'
 import { Flex, Box } from 'reflexbox'
 
 @inject("todoStore") @observer

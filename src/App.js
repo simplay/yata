@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { observer, Provider, inject } from "mobx-react";
 import rootStore from "./stores/root"
-import { Header, Container } from "semantic-ui-react"
 import "./App.css";
 import TodoList from "./components/TodoList";
 import { Router, Route } from 'react-router';
@@ -12,9 +11,7 @@ import {
 } from 'mobx-react-router';
 
 import {
-  Link,
-  Redirect,
-  withRouter
+  Redirect
 } from 'react-router-dom'
 
 @inject('authenticationStore')
