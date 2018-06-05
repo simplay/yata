@@ -5,88 +5,88 @@ import { Flex, Box } from 'reflexbox'
 
 @inject("todoStore") @observer
 class TodoDetails extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: this.props.todo.title,
-      description: this.getDescription()
+    constructor(props) {
+        super(props);
+        this.state = {
+            title: this.props.todo.title,
+            description: this.getDescription()
+        }
     }
-  }
 
-  handleClose = () => {
-      let activeTodo = this.props.todo;
-      this.props.todoStore.disableActiveTodo();
-      this.props.todoStore.updateActiveTodo(
-        activeTodo, this.state
-      );
-  }
+    handleClose = () => {
+        let activeTodo = this.props.todo;
+        this.props.todoStore.disableActiveTodo();
+        this.props.todoStore.updateActiveTodo(
+            activeTodo, this.state
+        );
+    }
 
-  handleOnChange = (event) => {
-      let fieldName = event.target.name;
-      let newValue = event.target.value;
-      this.setState({[fieldName]: newValue});
-  }
+    handleOnChange = (event) => {
+        let fieldName = event.target.name;
+        let newValue = event.target.value;
+        this.setState({[fieldName]: newValue});
+    }
 
-  displayModal = () => {
-      let activeTodo = this.props.todoStore.activeTodo;
-      return activeTodo === this.props.todo;
-  }
+    displayModal = () => {
+        let activeTodo = this.props.todoStore.activeTodo;
+        return activeTodo === this.props.todo;
+    }
 
-  getDescription = () => {
-      let description = this.props.todo.description;
-      if (description == null) {
-        return '';
-      }
-      return description;
-  }
+    getDescription = () => {
+        let description = this.props.todo.description;
+        if (description == null) {
+            return '';
+        }
+        return description;
+    }
 
-  render() {
-      let title = `Details: ${this.props.todo.title}`
-      const inlineStyle = {
-          modal: {
-              marginTop: '0px !important',
-              marginLeft: 'auto',
-              marginRight: 'auto'
-          }
-      };
+    render() {
+        let title = `Details: ${this.props.todo.title}`
+        const inlineStyle = {
+            modal: {
+                marginTop: '0px !important',
+                marginLeft: 'auto',
+                marginRight: 'auto'
+            }
+        };
 
-      return (
-          <Modal open={this.displayModal()}
-                 centered='true'
-                 onClose={this.handleClose}
-                 style={inlineStyle.modal}
-                 size='large'
-          >
-              <Header icon='browser' content='Todo Details' />
-              <Modal.Content>
-                  <Form>
-                      <Form.Field>
-                          <label>Title</label>
-                          <input placeholder='Title...'
-                                 value={this.state.title}
-                                 name="title"
-                                 onChange={this.handleOnChange}/>
-                      </Form.Field>
-                      <Form.Field>
-                          <label>Description</label>
-                          <input placeholder='Description goes here...'
-                                 value={this.state.description}
-                                 name="description"
-                                 onChange={this.handleOnChange}/>
-                      </Form.Field>
-                      <Form.Field>
-                          <Checkbox label='Done' />
-                      </Form.Field>
-                  </Form>
-              </Modal.Content>
-              <Modal.Actions>
-                  <Button color='green' onClick={this.handleClose} inverted>
-                      <Icon name='checkmark' /> Save
-                  </Button>
-              </Modal.Actions>
-          </Modal>
-      )
-  }
+        return (
+            <Modal open={this.displayModal()}
+                centered='true'
+                onClose={this.handleClose}
+                style={inlineStyle.modal}
+                size='large'
+            >
+                <Header icon='browser' content='Todo Details' />
+                <Modal.Content>
+                    <Form>
+                        <Form.Field>
+                            <label>Title</label>
+                            <input placeholder='Title...'
+                                   value={this.state.title}
+                                   name="title"
+                                   onChange={this.handleOnChange}/>
+                        </Form.Field>
+                        <Form.Field>
+                            <label>Description</label>
+                            <input placeholder='Description goes here...'
+                                   value={this.state.description}
+                                   name="description"
+                                   onChange={this.handleOnChange}/>
+                        </Form.Field>
+                        <Form.Field>
+                            <Checkbox label='Done' />
+                        </Form.Field>
+                    </Form>
+                </Modal.Content>
+                <Modal.Actions>
+                    <Button color='green' onClick={this.handleClose} inverted>
+                        <Icon name='checkmark' /> Save
+                    </Button>
+                </Modal.Actions>
+            </Modal>
+        )
+    }
 }
 
 @inject("todoStore") @observer
