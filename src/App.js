@@ -4,6 +4,7 @@ import rootStore from "./stores/root"
 import "./App.css";
 import TodoList from "./components/TodoList";
 import Login from "./components/Login";
+import AuthButton from "./components/AuthButton";
 import { Router, Route } from 'react-router';
 import createBrowserHistory from 'history/createBrowserHistory';
 import {
@@ -27,28 +28,6 @@ const ProtectedRoute = ({ authStore: authStore, component: Component, ...rest })
     )} />
 )
 
-class AuthButton extends React.Component {
-    handleClick = (event) => {
-        this.props.authStore.signout(
-            () => this.props.history.push('/')
-        );
-    }
-
-    render() {
-        return (
-            <div>
-                {
-                    this.props.authStore.isAuthenticated
-                    ? <button onClick={this.handleClick}>Sign out</button>
-                    : null
-                }
-                <br />
-                <br />
-            </div>
-        );
-    }
-}
-
 @observer
 class App extends Component {
     constructor(props) {
@@ -66,11 +45,12 @@ class App extends Component {
                       routing={this.routingStore}>
                 <Router history={this.history}>
                     <div className="App">
-                        <AuthButton authStore={rootStore.authenticationStore} history={this.history}/>
+                        <AuthButton authStore={rootStore.authenticationStore}
+                                    history={this.history}/>
                         <Route path="/" component={Login}/>
                         <ProtectedRoute path='/todos'
                                         component={TodoList}
-                                        authStore={rootStore.authenticationStore} />
+                                        authStore={rootStore.authenticationStore}/>
                     </div>
                 </Router>
             </Provider>
