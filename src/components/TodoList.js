@@ -99,13 +99,13 @@ class TodoDetails extends Component {
                                    name="title"
                                    onChange={this.handleOnChange}/>
                         </Form.Field>
-                        <Form.Field>
-                            <label>Description</label>
-                            <input placeholder='Description goes here...'
-                                   value={this.state.description}
-                                   name="description"
-                                   onChange={this.handleOnChange}/>
-                        </Form.Field>
+                        <Form.TextArea
+                            label="Description"
+                            placeholder='Description goes here...'
+                            value={this.state.description}
+                            name="description"
+                            onChange={this.handleOnChange}>
+                        </Form.TextArea>
                         <Form.Field>
                             <Checkbox label='Done'
                                       name="status"
