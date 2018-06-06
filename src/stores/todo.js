@@ -28,9 +28,9 @@ class TodoStore {
 
     @action
     updateActiveTodo(activeTodo, todoParams) {
-      updateTodo(activeTodo.id, todoParams, this.config).then(res => {
-          this.todos = res.data;
-      })
+        updateTodo(activeTodo.id, todoParams, this.config).then(res => {
+            this.todos = res.data;
+        })
     }
 
     @action

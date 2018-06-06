@@ -9,7 +9,8 @@ class TodoDetails extends Component {
         super(props);
         this.state = {
             title: this.props.todo.title,
-            description: this.getDescription()
+            description: this.getDescription(),
+            status: this.getStatusCode(this.props.todo)
         }
     }
 
@@ -38,6 +39,37 @@ class TodoDetails extends Component {
             return '';
         }
         return description;
+    }
+
+    // Todo status enum:
+    //   0: pristine
+    //   1: wip
+    //   2: done
+    //   3: canceled
+    getStatusCode = (todo) => {
+        switch(todo.status) {
+            case "pristine":
+                return 0;
+            case "wip":
+                return 1;
+            case "done":
+                return 2;
+            case "canceled":
+                return 3;
+            default:
+                return 1;
+        }
+    }
+
+    handleDoneClick = (event) => {
+        let newStatus = this.state.status === 0 ? 2 : 0
+        this.setState({
+            status: newStatus
+        });
+    }
+
+    statusIsDone = () => {
+        return this.state.status === 2;
     }
 
     render() {
@@ -75,7 +107,12 @@ class TodoDetails extends Component {
                                    onChange={this.handleOnChange}/>
                         </Form.Field>
                         <Form.Field>
-                            <Checkbox label='Done' />
+                            <Checkbox label='Done'
+                                      name="status"
+                                      type='checkbox'
+                                      checked={this.statusIsDone()}
+                                      onClick={this.handleDoneClick}
+                            />
                         </Form.Field>
                     </Form>
                 </Modal.Content>
