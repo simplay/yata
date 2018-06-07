@@ -16,7 +16,7 @@ class TodoStore {
 
     @action
     loadTodos() {
-        getTodos(this.config).then(res => {
+        return getTodos(this.config).then(res => {
             this.todos = res.data;
         });
     }
@@ -28,7 +28,7 @@ class TodoStore {
 
     @action
     updateActiveTodo(activeTodo, todoParams) {
-        updateTodo(activeTodo.id, todoParams, this.config).then(res => {
+        return updateTodo(activeTodo.id, todoParams, this.config).then(res => {
             this.todos = res.data;
         })
     }
@@ -40,14 +40,14 @@ class TodoStore {
 
     @action
     saveTodo(params) {
-        createTodo(params, this.config).then(res => {
+        return createTodo(params, this.config).then(res => {
             this.todos = res.data;
         })
     }
 
     @action
     deleteTodo(todo) {
-        destroyTodo(todo.id, this.config).then(res => {
+        return destroyTodo(todo.id, this.config).then(res => {
           this.todos = res.data;
         })
     }

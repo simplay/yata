@@ -20,7 +20,7 @@ class AuthenticationStore {
 
     @action
     authenticate(credentials) {
-        performAuthentication(credentials).then(res => {
+        return performAuthentication(credentials).then(res => {
             this.config = res.data;
             this.isAuthenticated = true;
             localStorage.setItem('config', JSON.stringify(this.config));
