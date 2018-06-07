@@ -1,6 +1,14 @@
 import React, { Component } from "react";
 import { inject, observer} from "mobx-react";
 import {
+    Button,
+    Form,
+    Grid,
+    Header,
+    Segment
+} from 'semantic-ui-react'
+
+import {
     Redirect
 } from 'react-router-dom'
 
@@ -37,24 +45,38 @@ class Login extends React.Component {
         }
 
         return (
-            <div>
-                <h1>YATA</h1>
-                <input type="text"
-                    id="inputEmail"
-                    className="form-control"
-                    placeholder="Email"
-                    onChange={this.handleEmailChange}
-                    required/>
-            <br />
-            <input type="password"
-                id="inputPassword"
-                className="form-control"
-                placeholder="Password"
-                onChange={this.handlePasswordChange}
-                required/>
-            <br />
-            <br />
-            <button onClick={this.handleClick}>Log in</button>
+            <div className="login-form">
+                <Grid textAlign='center' verticalAlign='middle'>
+                    <Grid.Column style={{ maxWidth: 450 }}>
+                        <Header as='h1' color='black' textAlign='center'>
+                            YATA
+                        </Header>
+                        <Form size='large'>
+                            <Segment stacked>
+                                <Form.Input
+                                    fluid icon='user'
+                                    id="inputEmail"
+                                    iconPosition='left'
+                                    placeholder='Email'
+                                    onChange={this.handleEmailChange}
+                                />
+                                <Form.Input
+                                    id="inputPassword"
+                                    fluid
+                                    icon='lock'
+                                    iconPosition='left'
+                                    placeholder='Password'
+                                    onChange={this.handlePasswordChange}
+                                    type='password'
+                                />
+
+                                <Button color='black' fluid size='large' onClick={this.handleClick}>
+                                    Login
+                                </Button>
+                            </Segment>
+                        </Form>
+                    </Grid.Column>
+                </Grid>
             </div>
         )
     }
