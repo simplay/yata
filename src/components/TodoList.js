@@ -1,7 +1,17 @@
 import React, { Component } from "react";
 import { inject, observer} from "mobx-react";
-import { List, Segment, Grid, Checkbox, Button, Form, Icon, Modal, Header } from 'semantic-ui-react'
-import { Flex, Box } from 'reflexbox'
+import {
+    List,
+    Segment,
+    Grid,
+    Checkbox,
+    Button,
+    Form,
+    Icon,
+    Modal,
+    Header
+} from "semantic-ui-react"
+import { Flex, Box } from "reflexbox"
 
 @inject("todoStore") @observer
 class TodoDetails extends Component {
@@ -36,7 +46,7 @@ class TodoDetails extends Component {
     getDescription = () => {
         let description = this.props.todo.description;
         if (description == null) {
-            return '';
+            return "";
         }
         return description;
     }
@@ -76,49 +86,53 @@ class TodoDetails extends Component {
         let title = `Details: ${this.props.todo.title}`
         const inlineStyle = {
             modal: {
-                marginTop: '0px !important',
-                marginLeft: 'auto',
-                marginRight: 'auto'
+                marginTop: "0px !important",
+                marginLeft: "auto",
+                marginRight: "auto"
             }
         };
 
         return (
-            <Modal open={this.displayModal()}
-                centered='true'
+            <Modal
+                open={this.displayModal()}
+                centered="true"
                 onClose={this.handleClose}
                 style={inlineStyle.modal}
-                size='large'
+                size="large"
             >
                 <Header icon='browser' content='Todo Details' />
                 <Modal.Content>
                     <Form>
                         <Form.Field>
                             <label>Title</label>
-                            <input placeholder='Title...'
-                                   value={this.state.title}
-                                   name="title"
-                                   onChange={this.handleOnChange}/>
+                            <input
+                                placeholder="Title..."
+                                value={this.state.title}
+                                name="title"
+                                onChange={this.handleOnChange}
+                            />
                         </Form.Field>
                         <Form.TextArea
                             label="Description"
-                            placeholder='Description goes here...'
+                            placeholder="Description goes here..."
                             value={this.state.description}
                             name="description"
                             onChange={this.handleOnChange}>
                         </Form.TextArea>
                         <Form.Field>
-                            <Checkbox label='Done'
-                                      name="status"
-                                      type='checkbox'
-                                      checked={this.statusIsDone()}
-                                      onClick={this.handleDoneClick}
+                            <Checkbox
+                                label="Done"
+                                name="status"
+                                type="checkbox"
+                                checked={this.statusIsDone()}
+                                onClick={this.handleDoneClick}
                             />
                         </Form.Field>
                     </Form>
                 </Modal.Content>
                 <Modal.Actions>
-                    <Button color='green' onClick={this.handleClose} inverted>
-                        <Icon name='checkmark' /> Save
+                    <Button color="green" onClick={this.handleClose} inverted>
+                        <Icon name="checkmark" /> Save
                     </Button>
                 </Modal.Actions>
             </Modal>
@@ -168,27 +182,36 @@ class TodoItem extends Component {
         let todo = this.props.todo;
         return (
             <div>
-            <TodoDetails todo={this.props.todo}/>
-            <Segment className="inverted"
-                       size="large"
-                       style={this.getTodoItemStyle()}
-                       onMouseEnter={this.handleHoverOn}
-                       onMouseLeave={this.handleHoverOff}
-                       onClick={this.handleSegmentClick}>
-                  <List.Item>
-                  <List.Content>
-                      <Flex justify="space-between">
-                          <Box>
-                              <List.Header style={{color: "white"}}>{todo.title}</List.Header>
-                          </Box>
-                          <Box>
-                              <Button color="red" onClick={this.handleDeleteClick}> Delete </Button>
-                          </Box>
-                      </Flex>
-                  </List.Content>
-                </List.Item>
-              </Segment>
-          </div>
+                <TodoDetails todo={this.props.todo}/>
+                <Segment
+                    className="inverted"
+                    size="large"
+                    style={this.getTodoItemStyle()}
+                    onMouseEnter={this.handleHoverOn}
+                    onMouseLeave={this.handleHoverOff}
+                    onClick={this.handleSegmentClick}
+                >
+                    <List.Item>
+                        <List.Content>
+                            <Flex justify="space-between">
+                                <Box>
+                                    <List.Header style={{color: "white"}}>
+                                        {todo.title}
+                                    </List.Header>
+                                </Box>
+                                <Box>
+                                    <Button
+                                        color="red"
+                                        onClick={this.handleDeleteClick}
+                                    >
+                                        Delete
+                                    </Button>
+                                </Box>
+                            </Flex>
+                        </List.Content>
+                    </List.Item>
+                </Segment>
+            </div>
         )
     }
 }
@@ -197,11 +220,11 @@ class TodoItem extends Component {
 class AddTodo extends Component {
     constructor(props) {
         super(props);
-        this.state = {title: ''};
+        this.state = {title: ""};
     }
 
     setDefaultTitle = () => {
-        this.setState({title: ''});
+        this.setState({title: ""});
     }
 
     handleChange = (event) => {
@@ -218,13 +241,15 @@ class AddTodo extends Component {
     render() {
         return (
             <Form onSubmit={this.handleSubmit}>
-              <Form.Group style={{margin:"0 0 -1em 0"}}>
-                    <Form.Input onChange={this.handleChange}
-                                fluid
-                                style={{width:"400px"}}
-                                size='large'
-                                value={this.state.title}
-                                placeholder='New Todo...' />
+                <Form.Group style={{margin:"0 0 -1em 0"}}>
+                    <Form.Input
+                        onChange={this.handleChange}
+                        fluid
+                        style={{width:"400px"}}
+                        size="large"
+                        value={this.state.title}
+                        placeholder="New Todo..."
+                    />
                 </Form.Group>
             </Form>
         )
@@ -246,10 +271,12 @@ class TodoList extends Component {
                         <AddTodo />
                     </Grid.Row>
                     <Grid.Row>
-                        <List divided
-                              inverted
-                              size='large'
-                              style={{width:"60%"}}>
+                        <List
+                            divided
+                            inverted
+                            size='large'
+                            style={{width:"60%"}}
+                        >
                             { todos.map(todo => <TodoItem key={todo.id} todo={todo}/>) }
                         </List>
                     </Grid.Row>

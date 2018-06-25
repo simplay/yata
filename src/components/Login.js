@@ -6,13 +6,13 @@ import {
     Grid,
     Header,
     Segment
-} from 'semantic-ui-react'
+} from "semantic-ui-react"
 
 import {
     Redirect
-} from 'react-router-dom'
+} from "react-router-dom"
 
-@inject('authenticationStore')
+@inject("authenticationStore")
 @observer
 class Login extends React.Component {
     state = {
@@ -38,7 +38,7 @@ class Login extends React.Component {
     }
 
     render() {
-        const { from } = this.props.location.state || { from: { pathname: '/todos' } }
+        const { from } = this.props.location.state || { from: { pathname: "/todos" } }
 
         if (this.props.authenticationStore.isAuthenticated) {
             return <Redirect to={from} />
@@ -46,31 +46,34 @@ class Login extends React.Component {
 
         return (
             <div className="login-form">
-                <Grid textAlign='center' verticalAlign='middle'>
+                <Grid textAlign="center" verticalAlign="middle">
                     <Grid.Column style={{ maxWidth: 450 }}>
-                        <Header as='h1' color='black' textAlign='center'>
+                        <Header as="h1" color="black" textAlign="center">
                             YATA
                         </Header>
-                        <Form size='large'>
+                        <Form size="large">
                             <Segment stacked>
                                 <Form.Input
-                                    fluid icon='user'
+                                    fluid icon="user"
                                     id="inputEmail"
-                                    iconPosition='left'
-                                    placeholder='Email'
+                                    iconPosition="left"
+                                    placeholder="Email"
                                     onChange={this.handleEmailChange}
                                 />
                                 <Form.Input
                                     id="inputPassword"
                                     fluid
-                                    icon='lock'
-                                    iconPosition='left'
-                                    placeholder='Password'
+                                    icon="lock"
+                                    iconPosition="left"
+                                    placeholder="Password"
                                     onChange={this.handlePasswordChange}
-                                    type='password'
+                                    type="password"
                                 />
-
-                                <Button color='black' fluid size='large' onClick={this.handleClick}>
+                                <Button
+                                    color="black"
+                                    fluid size="large"
+                                    onClick={this.handleClick}
+                                >
                                     Login
                                 </Button>
                             </Segment>

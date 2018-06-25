@@ -7,14 +7,14 @@ class AuthenticationStore {
 
     constructor(root) {
         this.root = root;
-        this.config = JSON.parse(localStorage.getItem('config')) || {}
-        this.isAuthenticated = JSON.parse(localStorage.getItem('success')) || false
+        this.config = JSON.parse(localStorage.getItem("config")) || {}
+        this.isAuthenticated = JSON.parse(localStorage.getItem("success")) || false
     }
 
     @computed
     get authToken() {
         return {
-            headers: {'Authorization': this.config.auth_token}
+            headers: {"Authorization": this.config.auth_token}
         };
     }
 
@@ -23,8 +23,8 @@ class AuthenticationStore {
         return performAuthentication(credentials).then(res => {
             this.config = res.data;
             this.isAuthenticated = true;
-            localStorage.setItem('config', JSON.stringify(this.config));
-            localStorage.setItem('success', true);
+            localStorage.setItem("config", JSON.stringify(this.config));
+            localStorage.setItem("success", true);
         }).catch(error => {
             console.log("error")
         });
