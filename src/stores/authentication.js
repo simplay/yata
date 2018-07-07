@@ -25,6 +25,7 @@ class AuthenticationStore {
             this.isAuthenticated = true;
             localStorage.setItem("config", JSON.stringify(this.config));
             localStorage.setItem("success", true);
+            this.root.navigationStore.showTodos();
         }).catch(error => {
             console.log("error")
         });

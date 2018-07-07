@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { inject, observer} from "mobx-react";
 import {
     Button,
@@ -8,13 +8,9 @@ import {
     Segment
 } from "semantic-ui-react"
 
-import {
-    Redirect
-} from "react-router-dom"
-
 @inject("authenticationStore")
 @observer
-class Login extends React.Component {
+class LoginView extends React.Component {
     state = {
         enteredPassword: "",
         enteredEmail: ""
@@ -38,12 +34,6 @@ class Login extends React.Component {
     }
 
     render() {
-        const { from } = this.props.location.state || { from: { pathname: "/todos" } }
-
-        if (this.props.authenticationStore.isAuthenticated) {
-            return <Redirect to={from} />
-        }
-
         return (
             <div className="login-form">
                 <Grid textAlign="center" verticalAlign="middle">
@@ -60,29 +50,29 @@ class Login extends React.Component {
                                     placeholder="Email"
                                     onChange={this.handleEmailChange}
                                 />
-                                <Form.Input
-                                    id="inputPassword"
-                                    fluid
-                                    icon="lock"
-                                    iconPosition="left"
-                                    placeholder="Password"
-                                    onChange={this.handlePasswordChange}
-                                    type="password"
-                                />
-                                <Button
-                                    color="black"
-                                    fluid size="large"
-                                    onClick={this.handleClick}
-                                >
-                                    Login
-                                </Button>
-                            </Segment>
-                        </Form>
-                    </Grid.Column>
-                </Grid>
+            <Form.Input
+                id="inputPassword"
+                fluid
+                icon="lock"
+                iconPosition="left"
+                placeholder="Password"
+                onChange={this.handlePasswordChange}
+                type="password"
+            />
+            <Button
+                color="black"
+                fluid size="large"
+                onClick={this.handleClick}
+            >
+                Login
+            </Button>
+            </Segment>
+            </Form>
+            </Grid.Column>
+            </Grid>
             </div>
         )
     }
 }
 
-export default Login;
+export default LoginView;

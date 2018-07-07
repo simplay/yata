@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "director": "^1.2.8",
     "mobx": "^4.3.0",
     "mobx-react": "^5.1.2",
     "mobx-react-router": "^4.0.4",

@@ -1,4 +1,9 @@
-import { getTodos, createTodo, destroyTodo, updateTodo } from "../api/todos"
+import {
+    getTodos,
+    createTodo,
+    destroyTodo,
+    updateTodo
+} from "../api/todos"
 import { observable, action, computed } from "mobx"
 
 class TodoStore {

@@ -1,66 +1,29 @@
-import React, { Component } from "react";
-import { observer, Provider, inject } from "mobx-react";
-import rootStore from "./stores/root"
+import React, { Fragment } from "react";
+import { observer, inject } from "mobx-react";
 import "./App.css";
-import TodoList from "./components/TodoList";
-import Login from "./components/Login";
-import AuthButton from "./components/AuthButton";
-import { Router, Route } from "react-router";
-import createBrowserHistory from "history/createBrowserHistory";
-import {
-    RouterStore,
-    syncHistoryWithStore
-} from "mobx-react-router";
+import Pager from "./views/Pager"
+import LoginView from "./views/LoginView"
+import LogoutButton from "./components/LogoutButton"
 
-import {
-  Redirect
-} from "react-router-dom"
-
-const ProtectedRoute = ({ authStore: authStore, component: Component, ...rest }) => (
-    <Route {...rest} render={(props) => (
-        authStore.isAuthenticated
-        ? <Component {...props} />
-        : <Redirect to={{
-            pathname: "/login",
-            state: { from: props.location }
-        }} />
-    )} />
-)
-
+@inject("authenticationStore")
 @observer
-class App extends Component {
-    constructor(props) {
-        super(props);
-        this.browserHistory = createBrowserHistory();
-        this.routingStore = new RouterStore();
-        this.history = syncHistoryWithStore(
-            this.browserHistory, this.routingStore
-        );
-    }
-
+class App extends React.Component {
     render() {
         return (
-            <Provider
-                rootStore={rootStore}
-                todoStore={rootStore.todoStore}
-                authenticationStore={rootStore.authenticationStore}
-                routing={this.routingStore}
-            >
-                <Router history={this.history}>
+            <Fragment>
+                <LogoutButton
+                    authStore={this.props.authenticationStore}
+                 />
+                { this.props.authenticationStore.isAuthenticated ? (
                     <div className="App">
-                        <AuthButton
-                            authStore={rootStore.authenticationStore}
-                            history={this.history}
-                        />
-                        <Route path="/" component={Login}/>
-                        <ProtectedRoute
-                            path="/todos"
-                            component={TodoList}
-                            authStore={rootStore.authenticationStore}
-                        />
+                        <div id="content">
+                           <Pager />
+                        </div>
                     </div>
-                </Router>
-            </Provider>
+                )
+                    : <LoginView />
+                }
+            </Fragment>
         );
     }
 }

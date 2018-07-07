@@ -3,7 +3,7 @@ import React, { Component } from "react";
 class AuthButton extends React.Component {
     handleClick = (event) => {
         this.props.authStore.signout(
-            () => this.props.history.push("/")
+            () => window.history.pushState(null, null, "/")
         );
     }
 
