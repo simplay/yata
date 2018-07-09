@@ -13,7 +13,11 @@ class NavigationStore {
     }
 
     @action showIndex() {
-        this.showTodos();
+        if (this.root.authenticationStore.isAuthenticated) {
+            this.showTodos();
+        } else {
+            this.showLogin();
+        }
     }
 
     @action showTodos() {
@@ -22,7 +26,12 @@ class NavigationStore {
     }
 
     @action showLogin() {
-        this.currentView = { name: 'login', id: null }
+        if (this.root.authenticationStore.isAuthenticated) {
+            this.showTodos()
+            window.history.pushState(null, null, "/todos")
+        } else {
+            this.currentView = { name: 'login', id: null }
+        }
     }
 }
 

@@ -79,7 +79,6 @@ class TodoDetails extends React.Component {
     }
 
     render() {
-        let title = `Details: ${this.props.todo.title}`
         const inlineStyle = {
             modal: {
                 marginTop: "0px !important",

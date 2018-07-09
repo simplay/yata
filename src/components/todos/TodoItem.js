@@ -3,8 +3,7 @@ import { inject, observer} from "mobx-react";
 import {
     List,
     Segment,
-    Button,
-    Header
+    Button
 } from "semantic-ui-react"
 import { Flex, Box } from "reflexbox"
 import TodoDetails from "./TodoDetails"

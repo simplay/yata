@@ -4,7 +4,8 @@ import { autorun } from 'mobx';
 export function startRouter(store) {
     const routes = {
         "/todos/": () => {store.showTodos()},
-        "/login/": () => {store.showLogin()}
+        "/login/": () => {store.showLogin()},
+        "/": () => {store.showIndex()}
     };
 
     // update state on url change

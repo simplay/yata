@@ -10,13 +10,13 @@ class AuthButton extends React.Component {
     render() {
         return (
             <div>
-                {
-                    this.props.authStore.isAuthenticated
-                    ? <button onClick={this.handleClick}>Sign out</button>
+                { this.props.authStore.isAuthenticated ? (
+                    <button onClick={this.handleClick}>Sign out</button>
+                )
                     : null
                 }
                 <br />
-            <br />
+                <br />
             </div>
         );
     }

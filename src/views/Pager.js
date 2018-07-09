@@ -4,12 +4,12 @@ import TodosView from "./TodosView"
 import LoginView from "./LoginView"
 
 const routingTable = {
-    todos: { view: () => <TodosView /> },
-    login: { view: () => <LoginView /> }
+    todos: { view: () => <TodosView />},
+    login: { view: () => <LoginView />}
 }
 
-@observer
 @inject("navigationStore")
+@observer
 class Pager extends React.Component {
     render() {
         const navigationStore = this.props.navigationStore;
