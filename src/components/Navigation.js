@@ -29,7 +29,6 @@ class Navigation extends React.Component {
                         <LogoutButton />
                     </Box>
                 </Flex>
-
             </div>
         )
     }

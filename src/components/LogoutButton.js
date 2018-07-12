@@ -20,15 +20,13 @@ class AuthButton extends React.Component {
                         onClick={this.handleClick}
                         color="black"
                     >
-                    <Icon name='sign out' />
-                    Sign out
+                        <Icon name='sign out' />
+                        Sign out
                     </Button>
                 </Button.Group>
                 )
                     : null
                 }
-                <br />
-                <br />
             </div>
         );
     }
