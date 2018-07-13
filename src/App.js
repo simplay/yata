@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 import { observer, inject } from "mobx-react";
-import "./App.css";
 import Navigation from "./components/layout/Navigation"
 import Sidebar from "./components/layout/Sidebar"
 import Pager from "./components/layout/Pager"
