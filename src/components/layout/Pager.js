@@ -1,7 +1,7 @@
 import React from "react";
 import { inject, observer } from "mobx-react"
-import TodosView from "./TodosView"
-import LoginView from "./LoginView"
+import TodosView from "../../views/TodosView"
+import LoginView from "../../views/LoginView"
 
 const routingTable = {
     todos: { view: () => <TodosView />},

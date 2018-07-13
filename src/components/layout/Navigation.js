@@ -1,7 +1,7 @@
 import React from "react";
 import { observer, inject } from "mobx-react";
 import { Flex, Box } from "reflexbox"
-import LogoutButton from "./LogoutButton"
+import LogoutButton from "../LogoutButton"
 
 class Navigation extends React.Component {
     render() {

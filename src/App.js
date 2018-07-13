@@ -1,11 +1,10 @@
 import React, { Fragment } from "react";
 import { observer, inject } from "mobx-react";
 import "./App.css";
-import Pager from "./views/Pager"
-import Navigation from "./components/Navigation"
-import Sidebar from "./components/Sidebar"
+import Navigation from "./components/layout/Navigation"
+import Sidebar from "./components/layout/Sidebar"
+import Pager from "./components/layout/Pager"
 import LoginView from "./views/LoginView"
-import LogoutButton from "./components/LogoutButton"
 
 @inject("authenticationStore")
 @observer
