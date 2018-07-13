@@ -14,7 +14,6 @@ class AuthButton extends React.Component {
     render() {
         return (
             <div id="signout-button">
-                { this.props.authenticationStore.isAuthenticated ? (
                 <Button.Group floated="right">
                     <Button
                         onClick={this.handleClick}
@@ -24,9 +23,6 @@ class AuthButton extends React.Component {
                         Sign out
                     </Button>
                 </Button.Group>
-                )
-                    : null
-                }
             </div>
         );
     }
