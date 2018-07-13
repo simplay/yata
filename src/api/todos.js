@@ -4,6 +4,14 @@ export function getTodos(config) {
     return api.get(`todos/`, config);
 }
 
+export function getIncompleteTodos(config) {
+    return api.get(`todos/incomplete`, config);
+}
+
+export function getCompletedTodos(config) {
+    return api.get(`todos/completed`, config);
+}
+
 export function getTodo(todoId, config) {
     return api.get(`todos/${todoId}`, config);
 }

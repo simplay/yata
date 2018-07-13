@@ -1,5 +1,7 @@
 import {
     getTodos,
+    getIncompleteTodos,
+    getCompletedTodos,
     createTodo,
     destroyTodo,
     updateTodo
@@ -19,9 +21,20 @@ class TodoStore {
         return this.root.authenticationStore.authToken;
     }
 
-    @action
-    loadTodos() {
+    @action loadTodos() {
         return getTodos(this.config).then(res => {
+            this.todos = res.data;
+        });
+    }
+
+    @action loadIncompleteTodos() {
+        return getIncompleteTodos(this.config).then(res => {
+            this.todos = res.data;
+        });
+    }
+
+    @action loadCompletedTodos() {
+        return getCompletedTodos(this.config).then(res => {
             this.todos = res.data;
         });
     }
