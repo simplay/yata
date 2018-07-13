@@ -35,7 +35,7 @@ class LoginView extends React.Component {
 
     render() {
         return (
-            <div className="login-form">
+            <div id="login-form">
                 <Grid textAlign="center" verticalAlign="middle">
                     <Grid.Column style={{ maxWidth: 450 }}>
                         <Header as="h1" color="black" textAlign="center">
