@@ -2,6 +2,7 @@ import { observable, action } from "mobx"
 
 class NavigationStore {
     @observable currentView = { name: '', id: null };
+    @observable filter = 'all'
 
     routes = [
         { name: 'Todos', funct: this.showTodos.bind(this), key: 'todos' },
@@ -32,6 +33,10 @@ class NavigationStore {
         } else {
             this.currentView = { name: 'login', id: null }
         }
+    }
+
+    @action updateFilter(filter) {
+        this.filter = filter;
     }
 }
 

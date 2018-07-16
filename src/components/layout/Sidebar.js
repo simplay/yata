@@ -18,21 +18,22 @@ class SidebarItem extends React.Component {
     }
 }
 
+@inject("navigationStore")
 @inject("todoStore")
 class Sidebar extends React.Component {
     loadAllTodos = (event) => {
-        console.log("loading all todos")
+        this.props.navigationStore.updateFilter('all');
         this.props.todoStore.loadTodos();
     }
 
     loadCompletedTodos = (event) => {
-        console.log("loading completed todos")
-        this.props.todoStore.loadCompletedTodos();
+        this.props.navigationStore.updateFilter('completed');
+        this.props.todoStore.loadTodos();
     }
 
     loadIncompleteTodos = (event) => {
-        console.log("loading incomplete todos")
-        this.props.todoStore.loadIncompleteTodos();
+        this.props.navigationStore.updateFilter('incomplete');
+        this.props.todoStore.loadTodos();
     }
 
     render() {
